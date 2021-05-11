@@ -60,8 +60,6 @@ class GraphTest {
 	 */
 	@Test
 	void constructorFstLine() {
-
-		int actual[] = new int[graph1.getSize()];
 		
 		// get the 1st line of the graph
 		for(int i = 0; i < size1; i++) {
