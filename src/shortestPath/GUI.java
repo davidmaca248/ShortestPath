@@ -241,7 +241,7 @@ public class GUI extends JFrame implements ActionListener{
 									mode = 2;  // go to endMode
 									msg.setText(modeMsg[mode]);
 								} else {
-									msg.setText("Invalid starting point, choose again");
+									msg.setText("Invalid starting point");
 									return;
 								}	
 							}
@@ -282,7 +282,7 @@ public class GUI extends JFrame implements ActionListener{
 										
 									}
 								} else {
-									msg.setText("Invalid end point, choose again");
+									msg.setText("Invalid end point");
 									return;
 								}	
 							}
