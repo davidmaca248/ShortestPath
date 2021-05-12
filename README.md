@@ -5,7 +5,7 @@ This is a Java project that I made to illustrate some shortest path algorithms o
 
 ## Update
 
-**Version 1.0 is released**.
+**Version 1.0 is released**
 
 ## Description
 
