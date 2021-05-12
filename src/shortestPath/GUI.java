@@ -41,7 +41,7 @@ public class GUI extends JFrame implements ActionListener{
 	private JButton nodes[][], returnBtn, resetBtn;
 	private JPanel titlePanel, graphPanel, botPanel, msgPanel, returnPanel, resetPanel; 
 	private JLabel msg, title;
-	private String modeMsg[];
+	private final String modeMsg[], wallBtn = "Walls Selected";
 	
 	public GUI() {
 		algo = new BFS();
@@ -59,8 +59,8 @@ public class GUI extends JFrame implements ActionListener{
 		
 		/* GUI */
 		this.setTitle("ShortestPath");
-		this.setResizable(true);
-		this.setSize(1000, 1055);
+		this.setResizable(false);
+		this.setSize(800, 850);
 		this.setLayout(new BorderLayout());
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,7 +96,7 @@ public class GUI extends JFrame implements ActionListener{
 		resetPanel.setBackground(Color.BLACK);
 		
 		/* buttons */
-		returnBtn = new JButton("Walls Selected");    // initial title
+		returnBtn = new JButton(wallBtn);    // initial title
 		returnBtn.addActionListener(this);
 		
 		resetBtn = new JButton("Reset");
@@ -145,7 +145,7 @@ public class GUI extends JFrame implements ActionListener{
 		if(srcBtn == resetBtn) {
 			mode = 0;
 			msg.setText(modeMsg[mode]);
-			returnBtn.setText("Done Walls");
+			returnBtn.setText(wallBtn);
 			
 			walls.clear();
 			path.clear();
@@ -179,7 +179,7 @@ public class GUI extends JFrame implements ActionListener{
 				case 1: { // startMode
 					mode = 0;
 					msg.setText(modeMsg[mode]);
-					returnBtn.setText("Walls Selected");
+					returnBtn.setText(wallBtn);
 					break;
 				}
 				case 2: { // endMode
