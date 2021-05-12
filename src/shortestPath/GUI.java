@@ -59,7 +59,7 @@ public class GUI implements ActionListener{
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		title = new JLabel("Shortest Path");
+		title = new JLabel("Shortest Path Calculator");
 		title.setFont(new Font("Arial", Font.BOLD, 43));
 		title.setBackground(Color.black);
 		title.setForeground(Color.cyan);
