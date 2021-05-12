@@ -29,9 +29,9 @@ import utils.Graph;
 */
 public class GUI extends JFrame implements ActionListener{
 	
-	private Algorithm algo;
-	private int graphSize;
-	private Graph graph;
+	private final Algorithm algo;
+	private final int graphSize= 50;
+	private final Graph graph;
 	private ArrayList<Coordinate> walls;
 	private ArrayList<Coordinate> path;
 	private Coordinate start;
@@ -45,7 +45,6 @@ public class GUI extends JFrame implements ActionListener{
 	
 	public GUI() {
 		algo = new BFS();
-		graphSize = 50;
 		graph = new Graph(graphSize);
 		walls = new ArrayList<Coordinate>();
 		path = new ArrayList<Coordinate>();
