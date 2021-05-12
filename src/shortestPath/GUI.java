@@ -18,7 +18,17 @@ import algorithm.BFS;
 import utils.Coordinate;
 import utils.Graph;
 
-public class GUI implements ActionListener{
+/**
+* Name   : GUI
+* Purpose: JFrame that is displayed on the GUI of the ShortestPath program
+* Details: Contains the content on the GUI
+*
+* @author  David Macababayao
+* @version 1.0
+* @since   2021-05-10 
+*/
+public class GUI extends JFrame implements ActionListener{
+	
 	private Algorithm algo;
 	private int graphSize;
 	private Graph graph;
@@ -28,12 +38,10 @@ public class GUI implements ActionListener{
 	private Coordinate end;
 	private int mode;           /* 0 = wallMode, 1= startMode, 2 = endMode 3 = doneMode */
 	
-	private JFrame frame;
 	private JButton nodes[][], returnBtn, resetBtn;
 	private JPanel titlePanel, graphPanel, botPanel, msgPanel, returnPanel, resetPanel; 
 	private JLabel msg, title;
 	private String modeMsg[];
-	
 	
 	public GUI() {
 		algo = new BFS();
@@ -51,13 +59,12 @@ public class GUI implements ActionListener{
 		modeMsg[3] = "Displaying Shortest Path";
 		
 		/* GUI */
-		frame = new JFrame();
-		frame.setTitle("ShortestPath");
-		frame.setResizable(true);
-		frame.setSize(1000, 1055);
-		frame.setLayout(new BorderLayout());
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("ShortestPath");
+		this.setResizable(true);
+		this.setSize(1000, 1055);
+		this.setLayout(new BorderLayout());
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		title = new JLabel("Shortest Path Calculator");
 		title.setFont(new Font("Arial", Font.BOLD, 43));
@@ -124,10 +131,10 @@ public class GUI implements ActionListener{
 		botPanel.add(returnPanel);
 		botPanel.add(resetPanel);
 
-		frame.add(titlePanel, BorderLayout.NORTH);
-		frame.add(graphPanel, BorderLayout.CENTER);
-		frame.add(botPanel, BorderLayout.SOUTH);
-		frame.revalidate();                        /* used so that frame appears on run time*/
+		this.add(titlePanel, BorderLayout.NORTH);
+		this.add(graphPanel, BorderLayout.CENTER);
+		this.add(botPanel, BorderLayout.SOUTH);
+		this.revalidate();                        /* used so that frame appears on run time*/
 	}
 
 
