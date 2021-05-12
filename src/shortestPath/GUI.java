@@ -96,7 +96,7 @@ public class GUI extends JFrame implements ActionListener{
 		resetPanel.setBackground(Color.BLACK);
 		
 		/* buttons */
-		returnBtn = new JButton("Done Walls");    // initial title
+		returnBtn = new JButton("Walls Selected");    // initial title
 		returnBtn.addActionListener(this);
 		
 		resetBtn = new JButton("Reset");
