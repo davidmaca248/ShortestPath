@@ -179,7 +179,7 @@ public class GUI extends JFrame implements ActionListener{
 				case 1: { // startMode
 					mode = 0;
 					msg.setText(modeMsg[mode]);
-					returnBtn.setText("Done Walls");
+					returnBtn.setText("Walls Selected");
 					break;
 				}
 				case 2: { // endMode
