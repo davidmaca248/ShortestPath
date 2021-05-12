@@ -7,7 +7,7 @@ This is a Java project that I made to illustrate some shortest path algorithms o
 
 **Version 1.0 is released**.
 
-## What this is
+## Description
 
 This is a Program that calculates the shortest path between two points in a graph and displays it through a Graphical User Interface.
 
