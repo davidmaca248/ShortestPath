@@ -19,7 +19,7 @@ This is a Program that calculates the shortest path between two points in a grap
   samples](http://.html)).
 
 ## Available downloads
-The [full jar file](https://github.com/davidmaca248/ShortestPath/releases/download/1.0/ShortestPath.jar) could be downloaded in the [Releases section](https://github.com/davidmaca248/ShortestPath/releases).
+The [full jar file](https://github.com/davidmaca248/ShortestPath/releases/download/1.0/ShortestPath.jar) can be downloaded in the [Releases section](https://github.com/davidmaca248/ShortestPath/releases).
 
 ## Dependencies
 The jar file already contains all of the needed dependencies.
