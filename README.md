@@ -1,12 +1,10 @@
 ## Read me first
 
-**Version 1.0 is out**. See [here](https://github.com/)
-for the list of changes compared to 2.0. And of course, it still has [all the
-features](https://github.com/) of older versions.
+**Version 1.0 is released**.
 
 ## What this is
 
-This is GUI Program that calculates the shortest path between two points in a graph
+This is a Program that calculates the shortest path between two points in a graph and displays it through a Graphical User Interface.
 
 ## Versions
 
@@ -16,9 +14,7 @@ This is GUI Program that calculates the shortest path between two points in a gr
   samples](http://.html)).
 
 ## Available downloads
+The full jar file could be downloaded in the releases section.
 
-### "Full" jar; command line
-
-## Relevant documents
-
-## More...
+## Dependencies
+The jar file already contains all of the needed dependencies.
