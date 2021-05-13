@@ -57,7 +57,7 @@ public class GUI extends JFrame implements ActionListener{
 		modeMsg[2] = "Select End Point";
 		modeMsg[3] = "Displaying Shortest Path";
 		
-		/* GUI */
+	
 		this.setTitle("ShortestPath");
 		this.setResizable(false);
 		this.setSize(800, 850);
@@ -65,36 +65,19 @@ public class GUI extends JFrame implements ActionListener{
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		title = new JLabel("Shortest Path Calculator");
-		title.setFont(new Font("Arial", Font.BOLD, 43));
-		title.setBackground(Color.black);
-		title.setForeground(Color.cyan);
-		title.setHorizontalAlignment(JLabel.CENTER);
-		title.setOpaque(true);
-		
 		msg = new JLabel(modeMsg[0]);
-		msg.setFont(new Font("Arial", Font.PLAIN, 20));
-		msg.setBackground(Color.black);
-		msg.setForeground(Color.red);
-		msg.setOpaque(true);
-		
+	
 		/* panels */
 		titlePanel = new JPanel();
-		titlePanel.setLayout(new BorderLayout());
-		
+
 		graphPanel = new JPanel(new GridLayout(graphSize, graphSize));
-		graphPanel.setBackground(Color.BLUE);
+
 		
 		botPanel = new JPanel();
-		botPanel.setLayout(new GridLayout(1, 1));
+
 		
 		msgPanel = new JPanel();
-		msgPanel.setBackground(Color.BLACK);
-		returnPanel = new JPanel();
-		returnPanel.setBackground(Color.BLACK);
-		resetPanel = new JPanel();
-		resetPanel.setBackground(Color.BLACK);
-		
+
 		/* buttons */
 		returnBtn = new JButton(wallBtn);    // initial title
 		returnBtn.addActionListener(this);
@@ -121,18 +104,7 @@ public class GUI extends JFrame implements ActionListener{
 		}
 		
 		/* add components */
-		titlePanel.add(title);
-		msgPanel.add(msg);
-		returnPanel.add(returnBtn);
-		resetPanel.add(resetBtn);
-		
-		botPanel.add(msgPanel);
-		botPanel.add(returnPanel);
-		botPanel.add(resetPanel);
 
-		this.add(titlePanel, BorderLayout.NORTH);
-		this.add(graphPanel, BorderLayout.CENTER);
-		this.add(botPanel, BorderLayout.SOUTH);
 		this.revalidate();                        /* used so that frame appears on run time*/
 	}
 
