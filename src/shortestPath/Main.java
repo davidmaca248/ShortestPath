@@ -13,8 +13,10 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		GUI gui = new GUI();
 		/* Initialize the GUI */
-		new GUI();
+		gui.initialize();
+		//new GUI();
 	}
 
 }

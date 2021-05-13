@@ -5,7 +5,7 @@ This is a Java project that I made to illustrate some shortest path algorithms o
 
 ## Update
 
-**Version 1.0 is released**
+**Version 1.1 is released**
 
 ## Description
 
@@ -13,7 +13,12 @@ This is a Program that calculates the shortest path between two points in a grap
 
 ## Versions
 
-* current stable version: **1.0**
+* current stable version: **1.1**
+  ([ChangeLog](https://github.com/),
+  [Javadoc](http:///index.html), [code
+  samples](http://.html)).
+
+* previous stable version: **1.0**
   ([ChangeLog](https://github.com/),
   [Javadoc](http:///index.html), [code
   samples](http://.html)).
