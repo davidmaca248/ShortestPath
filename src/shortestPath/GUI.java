@@ -2,6 +2,7 @@ package shortestPath;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -39,7 +40,7 @@ public class GUI extends JFrame implements ActionListener{
 	private int mode;           /* 0 = wallMode, 1= startMode, 2 = endMode 3 = doneMode */
 	
 	private JButton nodes[][], returnBtn, resetBtn;
-	private JPanel titlePanel, graphPanel, botPanel, msgPanel, returnPanel, resetPanel; 
+	private JPanel titlePanel, otherPanel, startPanel, mainPanel, botPanel; 
 	private JLabel msg, title;
 	private final String modeMsg[], wallBtn = "Walls Selected";
 	
@@ -57,27 +58,30 @@ public class GUI extends JFrame implements ActionListener{
 		modeMsg[2] = "Select End Point";
 		modeMsg[3] = "Displaying Shortest Path";
 		
-	
+		/* frame*/
 		this.setTitle("ShortestPath");
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setSize(800, 850);
 		this.setLayout(new BorderLayout());
-		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+		this.setBackground(Color.orange);
 		
-		msg = new JLabel(modeMsg[0]);
-	
 		/* panels */
 		titlePanel = new JPanel();
-
-		graphPanel = new JPanel(new GridLayout(graphSize, graphSize));
-
+		titlePanel.setBackground(Color.black);
+		//titlePanel.setBounds(0,0);
+		titlePanel.setPreferredSize(new Dimension(0,80));
 		
+		otherPanel = new JPanel();
+		startPanel = new JPanel();
+		mainPanel = new JPanel();
 		botPanel = new JPanel();
-
 		
-		msgPanel = new JPanel();
 
+		/* labels */
+		msg = new JLabel(modeMsg[0]);
+		
 		/* buttons */
 		returnBtn = new JButton(wallBtn);    // initial title
 		returnBtn.addActionListener(this);
@@ -90,7 +94,7 @@ public class GUI extends JFrame implements ActionListener{
 		for (int r = 0; r < graphSize; r++) {
 			for (int c = 0; c < graphSize; c++) {
 				nodes[r][c] = new JButton();
-				graphPanel.add(nodes[r][c]);
+				//graphPanel.add(nodes[r][c]);
 				nodes[r][c].setFocusable(false);
 				
 				/* initialize original walls (green) and paths (black)*/
@@ -104,7 +108,7 @@ public class GUI extends JFrame implements ActionListener{
 		}
 		
 		/* add components */
-
+		this.add(titlePanel,BorderLayout.NORTH);
 		this.revalidate();                        /* used so that frame appears on run time*/
 	}
 
