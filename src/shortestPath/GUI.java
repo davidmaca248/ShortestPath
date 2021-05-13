@@ -2,6 +2,8 @@ package shortestPath;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -30,7 +32,7 @@ import utils.Graph;
 public class GUI extends JFrame implements ActionListener{
 	
 	private final Algorithm algo;
-	private final int graphSize= 50;
+	private final int graphSize = 50;
 	private final Graph graph;
 	private ArrayList<Coordinate> walls;
 	private ArrayList<Coordinate> path;
@@ -38,12 +40,16 @@ public class GUI extends JFrame implements ActionListener{
 	private Coordinate end;
 	private int mode;           /* 0 = wallMode, 1= startMode, 2 = endMode 3 = doneMode */
 	
-	private JButton nodes[][], returnBtn, resetBtn;
-	private JPanel titlePanel, graphPanel, botPanel, msgPanel, returnPanel, resetPanel; 
-	private JLabel msg, title;
-	private final String modeMsg[], wallBtn = "Walls Selected";
+	private final JButton nodes[][], startBtn, midBtn, resetBtn;
+	private final JPanel mainPanel, startPanel, programPanel, graphPanel, botPanel; 
+	private final JLabel msgLabel, titleLabel;
+	private final String modeMsg[], midBtnMsg[];
+
 	
+	/* Sets up the GUI contents and the program variables*/
 	public GUI() {
+		
+		/* Program Variables */
 		algo = new BFS();
 		graph = new Graph(graphSize);
 		walls = new ArrayList<Coordinate>();
@@ -56,96 +62,140 @@ public class GUI extends JFrame implements ActionListener{
 		modeMsg[1] = "Select Starting Point";
 		modeMsg[2] = "Select End Point";
 		modeMsg[3] = "Displaying Shortest Path";
+		midBtnMsg = new String[2];
+		midBtnMsg[0] = "Walls Selected";
+		midBtnMsg[1] = "Return";
 		
 		/* GUI */
-		this.setTitle("ShortestPath");
-		this.setResizable(false);
-		this.setSize(800, 850);
-		this.setLayout(new BorderLayout());
-		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		titleLabel = new JLabel();
+		titleLabel.setText("Shortest Path Calculator");
+		titleLabel.setForeground(Color.cyan);
+		titleLabel.setBackground(Color.black);
+		titleLabel.setOpaque(true);
+		titleLabel.setPreferredSize(new Dimension(0,80));
+		titleLabel.setHorizontalAlignment(JLabel.CENTER);
+		titleLabel.setFont(new Font("Arial",Font.BOLD,40));
+
+		mainPanel = new JPanel();
+		/* So that startPanel would occupy the whole otherPanel */
+		mainPanel.setLayout(new BorderLayout());
 		
-		title = new JLabel("Shortest Path Calculator");
-		title.setFont(new Font("Arial", Font.BOLD, 43));
-		title.setBackground(Color.black);
-		title.setForeground(Color.cyan);
-		title.setHorizontalAlignment(JLabel.CENTER);
-		title.setOpaque(true);
+		startPanel = new JPanel();
+		startPanel.setBackground(Color.orange);
+		/* So that buttons would have a 200 gap between them */
+		startPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,200));
 		
-		msg = new JLabel(modeMsg[0]);
-		msg.setFont(new Font("Arial", Font.PLAIN, 20));
-		msg.setBackground(Color.black);
-		msg.setForeground(Color.red);
-		msg.setOpaque(true);
+		startBtn = new JButton();
+		startBtn.setText("Click here to start");
+		startBtn.setFocusable(false);
+		startBtn.setPreferredSize(new Dimension(400,100));
+		startBtn.setFont(new Font("Serif",Font.BOLD,30));
+		startBtn.setForeground(Color.black);
+		startBtn.setBackground(Color.cyan);
+		startBtn.addActionListener(this);
 		
-		/* panels */
-		titlePanel = new JPanel();
-		titlePanel.setLayout(new BorderLayout());
+		startPanel.add(startBtn);
 		
-		graphPanel = new JPanel(new GridLayout(graphSize, graphSize));
-		graphPanel.setBackground(Color.BLUE);
+		programPanel = new JPanel();
+		programPanel.setLayout(new BorderLayout());
 		
-		botPanel = new JPanel();
-		botPanel.setLayout(new GridLayout(1, 1));
+		graphPanel = new JPanel();
+		graphPanel.setLayout(new GridLayout(graphSize,graphSize,0,0));
+		graphPanel.setBackground(Color.blue);
 		
-		msgPanel = new JPanel();
-		msgPanel.setBackground(Color.BLACK);
-		returnPanel = new JPanel();
-		returnPanel.setBackground(Color.BLACK);
-		resetPanel = new JPanel();
-		resetPanel.setBackground(Color.BLACK);
-		
-		/* buttons */
-		returnBtn = new JButton(wallBtn);    // initial title
-		returnBtn.addActionListener(this);
-		
-		resetBtn = new JButton("Reset");
-		resetBtn.addActionListener(this);
-		
-		/* Color the graph (buttons) */
+		/* graph (buttons) */
 		nodes = new JButton[graphSize][graphSize];
 		for (int r = 0; r < graphSize; r++) {
 			for (int c = 0; c < graphSize; c++) {
 				nodes[r][c] = new JButton();
-				graphPanel.add(nodes[r][c]);
 				nodes[r][c].setFocusable(false);
+				nodes[r][c].addActionListener(this);
 				
-				/* initialize original walls (green) and paths (black)*/
+				/* Fills up the graphSize x graphSize grid with buttons */
+				graphPanel.add(nodes[r][c]);
+
+				/* initialize original walls (green) and paths (black) */
 				if(r == 0 || r == graphSize-1 || c == 0 || c == graphSize-1) { 
 					nodes[r][c].setBackground(Color.black);
 				} else {
 					nodes[r][c].setBackground(Color.green);
-					nodes[r][c].addActionListener(this);
 				}
 			}
 		}
 		
-		/* add components */
-		titlePanel.add(title);
-		msgPanel.add(msg);
-		returnPanel.add(returnBtn);
-		resetPanel.add(resetBtn);
+		botPanel = new JPanel();
+		botPanel.setLayout(new BorderLayout());
+		botPanel.setPreferredSize(new Dimension(0,60));
 		
-		botPanel.add(msgPanel);
-		botPanel.add(returnPanel);
-		botPanel.add(resetPanel);
+		msgLabel = new JLabel();
+		msgLabel.setText(modeMsg[0]);
+		msgLabel.setForeground(Color.black);
+		msgLabel.setBackground(Color.cyan);
+		msgLabel.setOpaque(true);
+		msgLabel.setHorizontalAlignment(JLabel.CENTER);
+		msgLabel.setFont(new Font("Arial",Font.PLAIN,30));
 
-		this.add(titlePanel, BorderLayout.NORTH);
-		this.add(graphPanel, BorderLayout.CENTER);
-		this.add(botPanel, BorderLayout.SOUTH);
-		this.revalidate();                        /* used so that frame appears on run time*/
+		midBtn = new JButton();
+		midBtn.setText("Walls Selected");
+		midBtn.setFocusable(false);
+		midBtn.setPreferredSize(new Dimension(200,0));
+		midBtn.setFont(new Font("Arial",Font.BOLD,20));
+		midBtn.setForeground(Color.black);
+		midBtn.setBackground(Color.orange);
+		midBtn.addActionListener(this);
+		
+		resetBtn = new JButton();
+		resetBtn.setText("Reset");
+		resetBtn.setFocusable(false);
+		resetBtn.setPreferredSize(new Dimension(200,0));
+		resetBtn.setFont(new Font("Arial",Font.BOLD,20));
+		resetBtn.setForeground(Color.black);
+		resetBtn.setBackground(Color.red);
+		resetBtn.addActionListener(this);
+		
+		botPanel.add(msgLabel,BorderLayout.CENTER);
+		botPanel.add(midBtn,BorderLayout.WEST);
+		botPanel.add(resetBtn,BorderLayout.EAST);
+		
+		/* programPanel will contain graphPanel and botPanel */
+		programPanel.add(graphPanel);
+		programPanel.add(botPanel,BorderLayout.SOUTH);
+
 	}
 
-
+	/* initializes the GUI */
+	public void initialize() {
+		
+		/* frame*/
+		this.setTitle("ShortestPath");
+		this.setResizable(false);
+		this.setSize(800, 900);
+		this.setLayout(new BorderLayout());
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+		this.setBackground(Color.orange);
+		
+		this.add(titleLabel,BorderLayout.NORTH);
+		this.add(mainPanel);
+		
+		/* mainPanel will INITIALLY contain the startPanel */
+		mainPanel.add(startPanel);
+	}
+		
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		final Object srcBtn = e.getSource();
 		
-		if(srcBtn == resetBtn) {
+		if(srcBtn==startBtn) {
+			mainPanel.remove(startPanel);
+			mainPanel.add(programPanel);
+			this.validate(); /* Refreshes the frame */
+		} 
+		else if(srcBtn == resetBtn) {
 			mode = 0;
-			msg.setText(modeMsg[mode]);
-			returnBtn.setText(wallBtn);
+			msgLabel.setText(modeMsg[mode]);
+			midBtn.setText(midBtnMsg[0]);
 			
 			walls.clear();
 			path.clear();
@@ -165,12 +215,12 @@ public class GUI extends JFrame implements ActionListener{
 			
 			return;
 		}
-		else if (srcBtn == returnBtn) {
+		else if (srcBtn == midBtn) {
 			switch(mode) {
 				case 0: { // wallMode
 					mode = 1;       // go to start mode
-					msg.setText(modeMsg[mode]);
-					returnBtn.setText("Return");
+					msgLabel.setText(modeMsg[mode]);
+					midBtn.setText(midBtnMsg[1]);
 
 					//apply walls to the graph
 					graph.setWalls(walls);
@@ -178,13 +228,13 @@ public class GUI extends JFrame implements ActionListener{
 				}
 				case 1: { // startMode
 					mode = 0;
-					msg.setText(modeMsg[mode]);
-					returnBtn.setText(wallBtn);
+					msgLabel.setText(modeMsg[mode]);
+					midBtn.setText(midBtnMsg[0]);
 					break;
 				}
 				case 2: { // endMode
 					mode = 1;  // back to start mode
-					msg.setText(modeMsg[mode]);
+					msgLabel.setText(modeMsg[mode]);
 					
 					// reset start
 					nodes[start.x][start.y].setBackground(Color.GREEN);
@@ -195,7 +245,7 @@ public class GUI extends JFrame implements ActionListener{
 				}
 				case 3: { // doneMode
 					mode = 2;  // back to end mode
-					msg.setText(modeMsg[mode]);
+					msgLabel.setText(modeMsg[mode]);
 					
 					// reset end
 					nodes[end.x][end.y].setBackground(Color.GREEN);  // incase path is empty
@@ -239,9 +289,9 @@ public class GUI extends JFrame implements ActionListener{
 									start.y = c;
 									nodes[r][c].setBackground(Color.YELLOW);
 									mode = 2;  // go to endMode
-									msg.setText(modeMsg[mode]);
+									msgLabel.setText(modeMsg[mode]);
 								} else {
-									msg.setText("Invalid starting point");
+									msgLabel.setText("Invalid starting point");
 									return;
 								}	
 							}
@@ -266,23 +316,23 @@ public class GUI extends JFrame implements ActionListener{
 									path = algo.calculate(graph,start,end);
 									
 									if(path.isEmpty()) {
-										msg.setText("No path from src to dest");
+										msgLabel.setText("No path from src to dest");
 									} else {
-										msg.setText(modeMsg[3]);
+										msgLabel.setText(modeMsg[3]);
 										
 										//color all nodes in the path 
 										for (Coordinate coor : path) { 
 										  nodes[coor.x][coor.y].setBackground(Color.RED);
 										} 
 										
-										/* keep start node yellow */
+										// keep start node yellow 
 										nodes[start.x][start.y].setBackground(Color.YELLOW);  
-										/* keep end node magenta */
+										// keep end node magenta 
 										nodes[end.x][end.y].setBackground(Color.MAGENTA);   
 										
 									}
 								} else {
-									msg.setText("Invalid end point");
+									msgLabel.setText("Invalid end point");
 									return;
 								}	
 							}
@@ -298,6 +348,5 @@ public class GUI extends JFrame implements ActionListener{
 				}
 			}
 		}
-		
 	}
 }
