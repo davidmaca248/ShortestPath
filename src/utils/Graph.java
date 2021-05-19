@@ -22,6 +22,7 @@ public class Graph {
 		
 		/* initialize original borders (0 = wall, 1 = path) */
 		graph = new int[graphSize][graphSize];
+		
 		/* Populate graph */
 		for (int r = 0; r < graphSize; r++) {
 			for (int c = 0; c < graphSize; c++) {

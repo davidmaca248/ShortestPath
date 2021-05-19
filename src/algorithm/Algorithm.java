@@ -89,6 +89,7 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 	
 	Algorithm(){
 		mode = 1;
+		graph = new Graph(GRAPH_SIZE);
 		path = new ArrayList<Coordinate>();
 		walls = new ArrayList<Coordinate>();
 		visited = new boolean[GRAPH_SIZE][GRAPH_SIZE];
@@ -99,7 +100,6 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 		timer = new Timer(10,this);
 		timer.start();
 		
-		graph = new Graph(GRAPH_SIZE);
 		/* graph Panel */
 		graphPanel = new JPanel();
 		graphPanel.setLayout(new GridLayout(GRAPH_SIZE,GRAPH_SIZE,-1,-1));
@@ -163,7 +163,7 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 		botPanel.add(midBtn,BorderLayout.EAST);
 
 		
-		resetGraph(); // color grid
+		resetGraph(); /* colors the grid */
 		
 		this.setLayout(new BorderLayout());
 		this.add(graphPanel,BorderLayout.NORTH);
@@ -185,7 +185,7 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 		final Object srcBtn = e.getSource();
 
 		switch(mode) {
-			case 1:{ // wall mode
+			case 1:{ /* wall mode */
 				if(srcBtn == resetBtn) {
 					resetGraph();
 				}
@@ -198,12 +198,12 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 				else if(srcBtn == calcBtn) {
 					
 				}
-				else {  // node clicked
-					// add walls to screen
+				else {  /* node clicked */
+					/* add walls to screen */
 					for (int r = 0; r < GRAPH_SIZE; r++) {
 						for (int c = 0; c < GRAPH_SIZE; c++) {
 							if(srcBtn == nodes[r][c]) {
-								// if not a wall
+								/* if not a wall */
 								if(graph.getValue(new Coordinate(r,c)) == 1){
 									nodes[r][c].setBackground(Color.BLACK);
 									walls.add(new Coordinate(r, c));
@@ -222,12 +222,12 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 							}
 						}
 					}
-					//apply walls to the graph
+					/* apply walls to the graph */
 					graph.setWalls(walls);
 				}
 				break;
 			}
-			case 2:{ // srcMode
+			case 2:{ /* srcMode */
 				if(srcBtn == resetBtn) {
 					resetGraph();
 				}
@@ -240,13 +240,13 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 				else if(srcBtn == calcBtn) {
 					
 				}
-				else {  // node clicked
-					// set startNode
+				else {  /* node clicked */
+					/* set startNode */
 					for (int r = 0; r < GRAPH_SIZE; r++) {
 						for (int c = 0; c < GRAPH_SIZE; c++) {
 							if(srcBtn == nodes[r][c]) {
 								
-								// if not a wall
+								/* if not a wall */
 								if(graph.getValue(new Coordinate(r,c)) == 1){
 									src.x = r;
 									src.y = c;
@@ -265,7 +265,7 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 				}
 				break;
 			}
-			case 3:{ // destMode
+			case 3:{ /* destMode */
 				if(srcBtn == resetBtn) {
 					resetGraph();
 				}
@@ -275,7 +275,7 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 					msgLabel.setText("Choose Starting Point");
 					midBtn.setText("Return");
 
-					// reset src
+					/* reset src */
 					nodes[src.x][src.y].setBackground(Color.green);
 					src.x = -1;
 					src.y = -1;
@@ -283,17 +283,17 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 				else if(srcBtn == calcBtn) {
 					
 				}
-				else {  // node clicked
-					// set destNode
+				else {  /* node clicked */
+					/* set destNode */
 					for (int r = 0; r < GRAPH_SIZE; r++) {
 						for (int c = 0; c < GRAPH_SIZE; c++) {
 							if(srcBtn == nodes[r][c]) {
-								// if not a wall
+								/* if not a wall */
 								if(graph.getValue(new Coordinate(r,c)) == 1){
 									dst.x = r;
 									dst.y = c;
 									nodes[r][c].setBackground(Color.magenta);
-									mode = 4;  // go to stageMode
+									mode = 4;  /* go to stageMode */
 									
 									/* Calculate Button appears */
 									botPanel.remove(msgLabel);
@@ -308,30 +308,30 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 				}
 				break;
 			}
-			case 4:{ //stageMode
+			case 4:{ /* stageMode */
 				if(srcBtn == resetBtn) {
 					resetGraph();
 				}
 				else if(srcBtn == midBtn) {
-					// go to destMode 					
+					/* go to destMode */ 					
 					mode = 3;
 					msgLabel.setText("Choose End Point");
 					
-					// remove calcBtn
+					/* remove calcBtn */
 					botPanel.remove(calcBtn);
 					botPanel.add(msgLabel,BorderLayout.CENTER);
 					
-					// reset dst
+					/* reset dst */
 					nodes[dst.x][dst.y].setBackground(Color.green);
 					dst.x = -1;
 					dst.y = -1;
 				}
-				else if(srcBtn == calcBtn){  // calculate
+				else if(srcBtn == calcBtn){  /* calculate */
 					mode = 5;
 					
 					msgLabel.setText("Calculating...");
 					
-					// remove calcBtn
+					/* remove calcBtn */
 					botPanel.remove(calcBtn);
 					botPanel.add(msgLabel,BorderLayout.CENTER);
 					
@@ -354,11 +354,11 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 				else {}
 				break;
 			}
-			case 5:{ // calcMode
+			case 5:{ /* calcMode */
 				drawVisited();
 				break;
 			}
-			case 6:{ //displayMode
+			case 6:{ /* displayMode */
 				if(path.isEmpty()) {
 					msgLabel.setText("There is no path found");
 				} else {
@@ -370,7 +370,7 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 			    nodes[src.x][src.y].setBackground(Color.yellow);
 			    nodes[dst.x][dst.y].setBackground(Color.magenta);
 
-				// remove calcBtn
+				/* remove calcBtn */
 				botPanel.remove(calcBtn);
 				botPanel.add(msgLabel,BorderLayout.CENTER);
 			    
@@ -382,11 +382,11 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 					resetGraph();
 				}
 				else if(srcBtn == midBtn) {
-					// go to dstMode
+					/* go to dstMode */
 					mode = 3;
 					msgLabel.setText("Choose End Point");
 
-					// reset dst
+					/* reset dst */
 					nodes[dst.x][dst.y].setBackground(Color.green);
 					dst.x = -1;
 					dst.y = -1;
@@ -396,7 +396,7 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 					
 					nodes[src.x][src.y].setBackground(Color.yellow);
 				}
-				else{} // node clicked	
+				else{} /* node clicked */	
 	
 				break;
 			}
@@ -431,10 +431,10 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 		path.clear();
 		visited = new boolean[GRAPH_SIZE][GRAPH_SIZE];
 		
-		// reset graph
+		/* reset graph */
 		for (int r = 0; r < GRAPH_SIZE; r++) {
 			for (int c = 0; c < GRAPH_SIZE; c++) {					
-				// paths (black) and borders(green)
+				/* paths (black) and borders(green) */
 				if(r == 0 || r == GRAPH_SIZE-1 || c == 0 || c == GRAPH_SIZE-1) {  // original walls
 					nodes[r][c].setBackground(Color.black);
 				} else {

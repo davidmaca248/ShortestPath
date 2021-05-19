@@ -17,10 +17,10 @@ import utils.Graph;
 class GraphTest {
 
 	private static Graph graph1;
-	private static Graph graph2;            // empty graph
+	private static Graph graph2;            /* empty graph */
 	private static int size1 = 50;
-	private static int[] expected1;	        // all walls (size2)
-	private static int[] expected2;         // all paths except ends (size2)
+	private static int[] expected1;	        /* all walls (size2) */
+	private static int[] expected2;         /* all paths except ends (size2) */
 	private static int[] actual1;
 	
 	@BeforeAll
@@ -36,12 +36,12 @@ class GraphTest {
 		graph1 = new Graph(size1);
 		graph2 = new Graph(0);
 		
-		expected1 = new int[graph1.getSize()]; // all walls
+		expected1 = new int[graph1.getSize()]; /* all walls */
 
 		expected2 = new int[graph1.getSize()];
-		Arrays.fill(expected2,1);             // fill expected with paths (1s) except for ends
-		expected2[0] = 0;                     // left end
-		expected2[size1-1] = 0;               // right end
+		Arrays.fill(expected2,1);             /* fill expected with paths (1s) except for ends */
+		expected2[0] = 0;                     /* left end */
+		expected2[size1-1] = 0;               /* right end */
 		
 		actual1 = new int[graph1.getSize()];
 	}
@@ -61,7 +61,7 @@ class GraphTest {
 	@Test
 	void constructorFstLine() {
 		
-		// get the 1st line of the graph
+		/* get the 1st line of the graph */
 		for(int i = 0; i < size1; i++) {
 			actual1[i] = graph1.getValue(new Coordinate(0,i));
 		}
@@ -74,10 +74,9 @@ class GraphTest {
 	 */
 	@Test
 	void constructorSecLine() {
-		// actual array
 		int actual1[] = new int[graph1.getSize()];
 	
-		// get the 2nd line of the graph (not including ends)
+		/* get the 2nd line of the graph (not including ends) */
 		for(int i = 1; i < size1-1; i++) {
 			actual1[i] = graph1.getValue(new Coordinate(1,i));
 		}
@@ -95,7 +94,7 @@ class GraphTest {
 		
 		graph1.resetGraph();
 		
-		// get the 1st line of the graph
+		/* get the 1st line of the graph */
 		for(int i = 0; i < size1; i++) {
 			actual1[i] = graph1.getValue(new Coordinate(0,i));
 		}
@@ -109,26 +108,26 @@ class GraphTest {
 	@Test
 	void setWallsFiveWalls() {
 		
-		// fill in the walls of the expected array
+		/* fill in the walls of the expected array */
 		for(int i = 7; i < 12; i++) {
 			expected2[i] = 0;
 		}
 		
-		int row = 3;                // row to add walls on 
+		int row = 3;  /* row to add walls on */ 
 		ArrayList<Coordinate> walls = new ArrayList<Coordinate>();
 		
-		// populate row 3 on columns 7 - 11 with walls
+		/* populate row 3 on columns 7 - 11 with walls */
 		for(int i = 7; i < 12; i++) {
 			walls.add(new Coordinate(row,i));
 		}
 		
-		// add walls to graph
+		/* add walls to graph */
 		graph1.setWalls(walls);
 		
 		// actual array
 		int actual1[] = new int[graph1.getSize()];
 		
-		// fill in actual array
+		/* fill in actual array */
 		for(int i = 0; i < size1; i++) {
 			actual1[i] = graph1.getValue(new Coordinate(row,i));
 		}
@@ -161,7 +160,7 @@ class GraphTest {
 	@Test
 	void getValuePath() {
 		
-		// (1,1) is a path
+		/* (1,1) is a path */
 		Coordinate c = new Coordinate(1,1);
 		assertEquals(1,graph1.getValue(c)," Must return 1");
 	}
@@ -172,7 +171,7 @@ class GraphTest {
 	@Test
 	void getValueWall() {
 		
-		// (0,1) is a wall
+		/* (0,1) is a wall */
 		Coordinate c = new Coordinate(0,1);
 		assertEquals(0,graph1.getValue(c)," Must return 0");
 	}
@@ -183,7 +182,7 @@ class GraphTest {
 	@Test
 	void flipToWall() {
 		
-		// (1,1) is a path (value of 1)
+		/* (1,1) is a path (value of 1) */
 		Coordinate c = new Coordinate(1,1);
 		graph1.flip(c);
 		int actual = graph1.getValue(c);
@@ -197,7 +196,7 @@ class GraphTest {
 	@Test
 	void flipToPath() {
 		
-		// (1,0) is a wall (value of 0)
+		/* (1,0) is a wall (value of 0) */
 		Coordinate c = new Coordinate(1,0);
 		graph1.flip(c);
 		int actual = graph1.getValue(c);
