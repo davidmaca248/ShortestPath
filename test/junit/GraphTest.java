@@ -176,5 +176,32 @@ class GraphTest {
 		Coordinate c = new Coordinate(0,1);
 		assertEquals(0,graph1.getValue(c)," Must return 0");
 	}
-
+	
+	/* 
+	 * Tests whether flip() toggles the given Coordinate value (Path)
+	 */
+	@Test
+	void flipToWall() {
+		
+		// (1,1) is a path (value of 1)
+		Coordinate c = new Coordinate(1,1);
+		graph1.flip(c);
+		int actual = graph1.getValue(c);
+		
+		assertEquals(0,actual,"Coordinate value must be 0");
+	}
+	
+	/* 
+	 * Tests whether flip() toggles the given Coordinate value (Wall)
+	 */
+	@Test
+	void flipToPath() {
+		
+		// (1,0) is a wall (value of 0)
+		Coordinate c = new Coordinate(1,0);
+		graph1.flip(c);
+		int actual = graph1.getValue(c);
+		
+		assertEquals(1,actual,"Coordinate value must be 1");
+	}
 }

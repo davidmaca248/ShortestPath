@@ -53,6 +53,17 @@ public class Graph {
 	}
 	
 	/*
+	 * Name   : flip
+	 * Purpose: Assigns the opposite to the value of the given Coordinate
+	 * 
+	 * @param : Coordinate
+	 * @return: void
+	 */
+	public void flip(Coordinate c) {
+		graph[c.x][c.y] = 1 - graph[c.x][c.y];
+	}
+	
+	/*
 	 * Name   : resetGraph
 	 * Purpose: Resets the graph to constructor specification
 	 * Details: Assigns 0 to the all border Coordinates and 1 to the rest of the Coordinates

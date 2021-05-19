@@ -203,8 +203,22 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 					for (int r = 0; r < GRAPH_SIZE; r++) {
 						for (int c = 0; c < GRAPH_SIZE; c++) {
 							if(srcBtn == nodes[r][c]) {
-								nodes[r][c].setBackground(Color.BLACK);
-								walls.add(new Coordinate(r, c));
+								// if not a wall
+								if(graph.getValue(new Coordinate(r,c)) == 1){
+									nodes[r][c].setBackground(Color.BLACK);
+									walls.add(new Coordinate(r, c));
+								} 
+								else { // already a wall
+									nodes[r][c].setBackground(Color.green);
+									
+									/* remove from walls*/
+									for(int i = 0; i < walls.size(); i++) {
+										if(walls.get(i).x == r && walls.get(i).y == c) {
+											walls.remove(i);
+											graph.flip(new Coordinate(r,c));
+										}
+									}
+								}
 							}
 						}
 					}
