@@ -68,7 +68,7 @@ public class BFS extends Algorithm{
 	            
 	            /* if neighbor cell is valid/is a path
 	               and not visited yet, enqueue it. */
-	            if ((graph.getValue(c)==1) && !visited[row][col])
+	            if ((graph.getValue(c) == 0) && !visited[row][col])
 	            {
 	                /* mark neighbor as visited */
 	                visited[row][col] = true;

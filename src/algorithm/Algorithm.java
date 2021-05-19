@@ -41,11 +41,11 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 	private final int FRAME_WIDTH = 700, FRAME_HEIGHT = 700, BOT_HEIGHT = 70, BOT_BTN_WIDTH = 180, GRAPH_SIZE = 50;
 	private int mode; /* 1 = wallmode, 2 = srcMode, 3 = destMode, 4 = stageMode, 5 = calcMode , 6 = displayMode*/
 	
-	protected final Graph graph;
+	protected Graph graph;
 	protected ArrayList<Coordinate> walls;
 	protected ArrayList<Coordinate> path;
 	protected boolean [][]visited;
-	protected final Coordinate src, dst;
+	protected Coordinate src, dst;
 
 	/* Used to get the 4 neighbors of a node (ONLY ADJACENT NODES) */
 	protected static int rowNum[] = {-1, 0, 0, 1};
@@ -203,8 +203,9 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 					for (int r = 0; r < GRAPH_SIZE; r++) {
 						for (int c = 0; c < GRAPH_SIZE; c++) {
 							if(srcBtn == nodes[r][c]) {
+								
 								/* if not a wall */
-								if(graph.getValue(new Coordinate(r,c)) == 1){
+								if(graph.getValue(new Coordinate(r,c)) == 0){
 									nodes[r][c].setBackground(Color.BLACK);
 									walls.add(new Coordinate(r, c));
 								} 
@@ -215,15 +216,15 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 									for(int i = 0; i < walls.size(); i++) {
 										if(walls.get(i).x == r && walls.get(i).y == c) {
 											walls.remove(i);
-											graph.flip(new Coordinate(r,c));
 										}
 									}
 								}
+								
+								/* apply walls or toggle to the graph */
+								graph.flip(new Coordinate(r,c));
 							}
 						}
 					}
-					/* apply walls to the graph */
-					graph.setWalls(walls);
 				}
 				break;
 			}
@@ -247,7 +248,7 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 							if(srcBtn == nodes[r][c]) {
 								
 								/* if not a wall */
-								if(graph.getValue(new Coordinate(r,c)) == 1){
+								if(graph.getValue(new Coordinate(r,c)) == 0){
 									src.x = r;
 									src.y = c;
 									
@@ -289,7 +290,7 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 						for (int c = 0; c < GRAPH_SIZE; c++) {
 							if(srcBtn == nodes[r][c]) {
 								/* if not a wall */
-								if(graph.getValue(new Coordinate(r,c)) == 1){
+								if(graph.getValue(new Coordinate(r,c)) == 0){
 									dst.x = r;
 									dst.y = c;
 									nodes[r][c].setBackground(Color.magenta);
@@ -425,23 +426,27 @@ public abstract class Algorithm extends JPanel implements ActionListener{
 		}
 		
 		mode = 1;
-
-		graph.resetGraph();
-		walls.clear();
-		path.clear();
+		graph = new Graph(GRAPH_SIZE);
+		path = new ArrayList<Coordinate>();
+		walls = new ArrayList<Coordinate>();
 		visited = new boolean[GRAPH_SIZE][GRAPH_SIZE];
+		src = new Coordinate();
+		dst = new Coordinate();
 		
 		/* reset graph */
 		for (int r = 0; r < GRAPH_SIZE; r++) {
 			for (int c = 0; c < GRAPH_SIZE; c++) {					
-				/* paths (black) and borders(green) */
+				/* paths(black) and borders(green) */
 				if(r == 0 || r == GRAPH_SIZE-1 || c == 0 || c == GRAPH_SIZE-1) {  // original walls
 					nodes[r][c].setBackground(Color.black);
+					nodes[r][c].setEnabled(false);
+					walls.add(new Coordinate(r,c));
 				} else {
 					nodes[r][c].setBackground(Color.green);
 				}
 			}
 		}
+		graph.setWalls(walls);
 	}
 	
 	/*

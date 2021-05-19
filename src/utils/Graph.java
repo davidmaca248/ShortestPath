@@ -1,5 +1,6 @@
 package utils;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 /*
@@ -20,23 +21,8 @@ public class Graph {
 	public Graph(int size) {
 		graphSize = size;
 		
-		/* initialize original borders (0 = wall, 1 = path) */
+		/* initialize original borders (1 = wall, 0 = path) */
 		graph = new int[graphSize][graphSize];
-		
-		/* Populate graph */
-		for (int r = 0; r < graphSize; r++) {
-			for (int c = 0; c < graphSize; c++) {
-				
-				/* walls (0) */
-				if(r == 0 || r == graphSize-1 || c == 0 || c == graphSize-1) {
-					graph[r][c] = 0;
-				} 
-				/* paths (1) */
-				else {
-					graph[r][c] = 1;
-				}
-			}
-		}
 	}
 	
 	/*
@@ -49,7 +35,7 @@ public class Graph {
 	 */
 	public void setWalls(ArrayList<Coordinate> walls) {
 		for (Coordinate wall: walls) { 
-			graph[wall.x][wall.y] = 0;
+			graph[wall.x][wall.y] = 1;
 		} 
 	}
 	
@@ -67,20 +53,13 @@ public class Graph {
 	/*
 	 * Name   : resetGraph
 	 * Purpose: Resets the graph to constructor specification
-	 * Details: Assigns 0 to the all border Coordinates and 1 to the rest of the Coordinates
+	 * Details: Assigns 0 to all Coordinates
 	 * 
 	 * @return: void
 	 */
 	public void resetGraph() {
-		for (int r = 0; r < graphSize; r++) {
-			for (int c = 0; c < graphSize; c++) {
-				if(r == 0 || r == graphSize-1 || c == 0 || c == graphSize-1) {  // original walls
-					graph[r][c] = 0;
-				} else {
-					graph[r][c] = 1;
-				}
-			}
-		}
+		/* initialize original borders (1 = wall, 0 = path) */
+		graph = new int[graphSize][graphSize];
 	}
 
 	/*
